@@ -7,25 +7,31 @@
 
     <LinearLayout
         android:id="@+id/layoutForText"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
 
         <TextView
             android:id="@+id/bugsFound"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="30dp"
-            android:text="Bugs Found: 0 of 0" />
+            android:layout_weight="1"
+            android:text="Found 0 of 0 Bugs"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/debugAttempts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
             android:layout_toRightOf="@id/bugsFound"
-            android:text="Debug Attempts: 0" />
+            android:layout_weight="1"
+            android:text="Debug Attempts: 0"
+            android:textAlignment="textEnd"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
