@@ -10,32 +10,40 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.Toast;
+import android.widget.TextView;
+
+import ca.cmpt276.as3.model.GameLogic;
 
 public class GameActivity extends AppCompatActivity {
-
-    private static final int NUM_ROWS = 4;
-    private static final int NUM_COLS = 6;
-    private Button[][] buttons = new Button[NUM_ROWS][NUM_COLS];
+    private GameLogic gameLogic;
+    private int numberOfRows;
+    private int numberOfColumns;
+    private int debugCount = 0;
+    private Button[][] buttons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         getSupportActionBar().hide();
+        gameLogic = GameLogic.getInstance();
+        numberOfRows = gameLogic.getNumberOfRows();
+        numberOfColumns = gameLogic.getNumberOfColumns();
+        buttons = new Button[numberOfRows][numberOfColumns];
         populateButtons();
+        gameLogic.initializeGame();
     }
 
     private void populateButtons() {
         TableLayout table = findViewById(R.id.tableForButtons);
-        for (int row = 0; row < NUM_ROWS; row++) {
+        for (int row = 0; row < numberOfRows; row++) {
             // Create a new row in the table and set the layout parameters
             // such that the row  spaces evenly with other rows to take up all available space
             TableRow tableRow = new TableRow(this);
             setTableRowLayoutParams(tableRow);
             // add the TableRow as a child of TableLayout in the .xml
             table.addView(tableRow);
-            for (int col = 0; col < NUM_COLS; col++) {
+            for (int col = 0; col < numberOfColumns; col++) {
                 // Create a new button in the table row and set the layout
                 // parameters such that the button spaces evenly with other buttons in the row
                 Button button = new Button(this);
@@ -49,6 +57,8 @@ public class GameActivity extends AppCompatActivity {
                 tableRow.addView(button);
                 // add the button to private array so that we can access it in click listener
                 buttons[row][col] = button;
+                // implement button into game logic
+                gameLogic.addGameButton(row, col);
             }
         }
     }
@@ -72,9 +82,22 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void gameButtonClicked(int row, int col) {
+        GameLogic.GameStatus gameStatus = gameLogic.generateClickResponse(row, col);
         Button button = buttons[row][col];
         lockButtonSizes();
-        // change size of background image and set it as the bug icon
+        if (gameStatus == GameLogic.GameStatus.BUG_FOUND
+         || gameStatus == GameLogic.GameStatus.GAME_OVER) {
+            revealBug(button);
+            updateBugsFound();
+        }
+
+        if (gameStatus != GameLogic.GameStatus.NO_SCAN_USED) {
+            updateDebugCount();
+            updateUIText();
+        }
+    }
+
+    private void revealBug(Button button) {
         int newWidth = button.getWidth();
         int newHeight = button.getHeight();
         Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bug_red);
@@ -84,8 +107,8 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void lockButtonSizes() {
-        for (int row = 0; row < NUM_ROWS; row++) {
-            for (int col = 0; col < NUM_COLS; col++) {
+        for (int row = 0; row < numberOfRows; row++) {
+            for (int col = 0; col < numberOfColumns; col++) {
                 Button button = buttons[row][col];
                 int width = button.getWidth();
                 button.setMinWidth(width);
@@ -93,6 +116,27 @@ public class GameActivity extends AppCompatActivity {
                 int height = button.getHeight();
                 button.setMinHeight(height);
                 button.setMaxHeight(height);
+            }
+        }
+    }
+
+    private void updateBugsFound() {
+        TextView bugsFound = findViewById(R.id.bugsFound);
+        bugsFound.setText("Found " + gameLogic.getBugsFound() + " of " + gameLogic.getNumBugs() + " Bugs" );
+    }
+
+    private void updateDebugCount() {
+        debugCount++;
+        TextView debugAttempts = findViewById(R.id.debugAttempts);
+        debugAttempts.setText("Debug Attempts: " + debugCount);
+    }
+
+    private void updateUIText() {
+        for (int row = 0; row < numberOfRows; row++) {
+            for (int col = 0; col < numberOfColumns; col++) {
+                Button button = buttons[row][col];
+                String updatedText = gameLogic.getText(row, col);
+                button.setText(updatedText);
             }
         }
     }

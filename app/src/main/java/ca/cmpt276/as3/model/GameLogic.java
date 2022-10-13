@@ -30,8 +30,13 @@ public class GameLogic {
     private final int DECREMENT_COUNT = -1;
     public enum GameStatus {
         NO_SCAN_USED,
-        SCAN_USED,
+        NO_BUG_FOUND,
+        BUG_FOUND,
         GAME_OVER
+    }
+
+    public int getNumBugs() {
+        return numBugs;
     }
 
     public int getNumberOfRows() {
@@ -40,6 +45,10 @@ public class GameLogic {
 
     public int getNumberOfColumns() {
         return numCols;
+    }
+
+    public int getBugsFound() {
+        return bugsFound;
     }
 
     public void changeOptions(int numRows, int numCols, int numBugs) {
@@ -109,15 +118,15 @@ public class GameLogic {
         GameButton button = gameBoard.get(buttonID);
         if (button.isBug() && button.isBugFound() && button.isHidingText()) {
             button.showText();
-            return GameStatus.SCAN_USED;
+            return GameStatus.NO_BUG_FOUND;
         } else if (button.isBug() && !button.isBugFound()) {
             button.setBugFound(true);
             bugsFound++;
             updateBugCount(row, col, DECREMENT_COUNT);
-            return isGameOver() ? GameStatus.GAME_OVER : GameStatus.SCAN_USED;
+            return isGameOver() ? GameStatus.GAME_OVER : GameStatus.BUG_FOUND;
         } else if (button.isHidingText()) {
             button.showText();
-            return GameStatus.SCAN_USED;
+            return GameStatus.NO_BUG_FOUND;
         }
         return GameStatus.NO_SCAN_USED;
     }
