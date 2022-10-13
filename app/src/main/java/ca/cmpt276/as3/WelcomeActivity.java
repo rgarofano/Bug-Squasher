@@ -10,7 +10,7 @@ import android.widget.Button;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    public static final int DELAY_MILLIS = 5000;
+    public static final int DELAY_MILLIS = 4000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
