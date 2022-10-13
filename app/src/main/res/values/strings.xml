@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Assignment 3</string>
+    <string name="authors">[    Authors    ]</string>
+    <string name="bug">\ \ \ \ \ \'__\'\n
+        \\O__O/\n==x||x==\n
+        \  /^||^\\\n
+        /^^||^^\\\n
+        \\^^||^^/</string>
 </resources>
