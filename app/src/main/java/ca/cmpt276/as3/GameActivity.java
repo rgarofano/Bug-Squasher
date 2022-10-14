@@ -50,6 +50,9 @@ public class GameActivity extends AppCompatActivity {
             // such that the row  spaces evenly with other rows to take up all available space
             TableRow tableRow = new TableRow(this);
             setTableRowLayoutParams(tableRow);
+            // Style TableRow to match theme
+            tableRow.setBackgroundColor(Color.WHITE);
+            tableRow.getBackground().setAlpha(100);
             // add the TableRow as a child of TableLayout in the .xml
             table.addView(tableRow);
             for (int col = 0; col < numberOfColumns; col++) {
@@ -62,6 +65,9 @@ public class GameActivity extends AppCompatActivity {
                 createButtonOnClickListener(button, row, col);
                 // improves readability of text at large grid sizes
                 button.setPadding(0,0,0,0);
+                // Style button to match theme
+                button.setBackgroundColor(Color.BLACK);
+                button.getBackground().setAlpha(200);
                 // add the button as a child of the TableRow in the .xml
                 tableRow.addView(button);
                 // add the button to private array so that we can access it in click listener
@@ -80,10 +86,19 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void setButtonLayoutParams(Button button) {
-        button.setLayoutParams(new TableRow.LayoutParams(
-                TableRow.LayoutParams.MATCH_PARENT,
-                TableRow.LayoutParams.MATCH_PARENT,
-                1.0f));
+        TableRow.LayoutParams tableRowParams = new TableRow.LayoutParams(
+                        TableRow.LayoutParams.MATCH_PARENT,
+                        TableRow.LayoutParams.MATCH_PARENT,
+                        1.0f);
+
+        int leftMargin=5;
+        int topMargin=5;
+        int rightMargin=5;
+        int bottomMargin=5;
+
+        tableRowParams.setMargins(leftMargin, topMargin, rightMargin, bottomMargin);
+
+        button.setLayoutParams(tableRowParams);
     }
 
     private void createButtonOnClickListener(Button button, final int row, final int col) {
@@ -150,6 +165,7 @@ public class GameActivity extends AppCompatActivity {
                 Button button = buttons[row][col];
                 String updatedText = gameLogic.getText(row, col);
                 button.setText(updatedText);
+                button.setTextColor(Color.parseColor("#39FF14"));
             }
         }
     }

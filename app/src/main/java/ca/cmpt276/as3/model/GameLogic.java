@@ -85,7 +85,7 @@ public class GameLogic {
     }
 
     private void updateBugCount(int bugRow, int bugCol, int offset) {
-        // increment the bugCount for every button in the same column as the bug
+        // adjust the bugCount for every button in the same column as the bug
         // Do not modify the count of the bug itself
         for (int row = 0; row < numRows; row++) {
             if (row != bugRow) {
@@ -95,9 +95,9 @@ public class GameLogic {
                 button.setBugCount(currentBugCount + offset);
             }
         }
-        // increment the bugCount for every button in the same row as the bug
+        // adjust the bugCount for every button in the same row as the bug
         // Do not modify the count of the bug itself
-        for (int col = 0; col < numRows; col++) {
+        for (int col = 0; col < numCols; col++) {
             if (col != bugCol) {
                 String buttonID = keyGen.generateKey(bugRow, col);
                 GameButton button = gameBoard.get(buttonID);
