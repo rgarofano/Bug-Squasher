@@ -3,6 +3,8 @@ package ca.cmpt276.as3;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -178,5 +180,10 @@ public class GameActivity extends AppCompatActivity {
         Button okButton = dialog.findViewById(R.id.btnOk);
         okButton.setOnClickListener(view -> finish());
         dialog.show();
+    }
+
+    public static Intent getIntent(Context context) {
+        Intent intent = new Intent(context, GameActivity.class);
+        return intent;
     }
 }
