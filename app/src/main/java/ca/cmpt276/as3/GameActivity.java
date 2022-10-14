@@ -2,10 +2,13 @@ package ca.cmpt276.as3;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -27,11 +30,17 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         getSupportActionBar().hide();
         gameLogic = GameLogic.getInstance();
+        initializeBugsFoundText();
         numberOfRows = gameLogic.getNumberOfRows();
         numberOfColumns = gameLogic.getNumberOfColumns();
         buttons = new Button[numberOfRows][numberOfColumns];
         populateButtons();
         gameLogic.initializeGame();
+    }
+
+    private void initializeBugsFoundText() {
+        TextView bugsFound = findViewById(R.id.bugsFound);
+        bugsFound.setText("Found 0 of " + gameLogic.getNumBugs() + " Bugs");
     }
 
     private void populateButtons() {
@@ -95,6 +104,10 @@ public class GameActivity extends AppCompatActivity {
             updateDebugCount();
             updateUIText();
         }
+
+        if (gameStatus == GameLogic.GameStatus.GAME_OVER) {
+            launchDialog();
+        }
     }
 
     private void revealBug(Button button) {
@@ -139,5 +152,15 @@ public class GameActivity extends AppCompatActivity {
                 button.setText(updatedText);
             }
         }
+    }
+
+    private void launchDialog() {
+        // followed a tutorial for this code -> https://www.youtube.com/watch?v=5PaWtQAOdi8&ab_channel=TechnicalSkillz
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.win_dialog);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Button okButton = dialog.findViewById(R.id.btnOk);
+        okButton.setOnClickListener(view -> finish());
+        dialog.show();
     }
 }
