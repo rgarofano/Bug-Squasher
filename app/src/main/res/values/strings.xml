@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Assignment 3</string>
-    <string name="authors">[    Authors    ]</string>
+    <string name="game_title">[    Bug Squasher    ]</string>
+    <string name="authors">[    by Ryan Garofano and Jen Gu    ]</string>
     <string name="bug">\ \ \ \ \ \'__\'\n
         \\O__O/\n==x||x==\n
         \  /^||^\\\n
