@@ -10,7 +10,8 @@ import android.widget.Button;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    public static final int DELAY_MILLIS = 4000;
+    private static final int DELAY_MILLIS = 4000;
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,15 +22,15 @@ public class WelcomeActivity extends AppCompatActivity {
         //start android animations
 
         //delayed handler that starts the main activity
-       Handler handler =  new Handler();
-       Runnable runnable = new Runnable() {
+        handler =  new Handler();
+        Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
                 finish();
             }
         };
-       handler.postDelayed(runnable, DELAY_MILLIS);
+        handler.postDelayed(runnable, DELAY_MILLIS);
 
         //skip button override of handler
         Button skipButton = findViewById(R.id.skipButton);
@@ -38,5 +39,11 @@ public class WelcomeActivity extends AppCompatActivity {
             startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
             finish();
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        handler.removeCallbacksAndMessages(null);
+        super.onDestroy();
     }
 }
