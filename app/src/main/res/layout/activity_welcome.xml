@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="156dp"
         android:layout_marginBottom="88dp"
-        android:rotation="12"
+        android:rotation="0"
         android:rotationY="0"
         android:text="@string/bug"
         android:textColor="@color/green_gecko"
