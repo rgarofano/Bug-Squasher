@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -24,8 +23,8 @@ public class WelcomeActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         //start android animations
-        Animation move = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move);
         TextView bug = findViewById(R.id.bug);
+        Animation move = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move_bug);
         bug.startAnimation(move);
 
         move.setAnimationListener(new Animation.AnimationListener() {
@@ -36,7 +35,10 @@ public class WelcomeActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-            //delayed handler that starts the main activity
+                TextView bug = findViewById(R.id.bug);
+                bug.setText(R.string.dead_bug);
+
+                //delayed handler that starts the main activity
                 handler = new Handler();
                 runnable = new Runnable() {
                     @Override
