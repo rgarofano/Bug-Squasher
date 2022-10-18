@@ -15,12 +15,15 @@ public class HelpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
         getSupportActionBar().hide();
-        setupHyperlink();
+        setupHyperlinks();
     }
 
-    private void setupHyperlink() {
-        TextView linkTextView = findViewById(R.id.aboutAuthor);
-        linkTextView.setMovementMethod(LinkMovementMethod.getInstance());
+    private void setupHyperlinks() {
+        TextView aboutAuthor = findViewById(R.id.aboutAuthor);
+        aboutAuthor.setMovementMethod(LinkMovementMethod.getInstance());
+
+        TextView references = findViewById(R.id.references);
+        references.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     public static Intent getIntent(Context context) {

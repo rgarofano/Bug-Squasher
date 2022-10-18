@@ -14,7 +14,13 @@
                             \nTo play the game, the player taps on a cell that they want to inspect. If the cell contains a bug, the
                             bug is squashed. If there is no bug in the selected cell, a scan is instead initiated that counts the
                             number of bugs hidden in the same row and column.\n </string>
-    <string name="references">Image References here</string>
+    <string name="references">\n Image References:
+    <a href="https://www.cleanpng.com/png-tux-racer-penguin-linux-unix-live-community-my-ima-6271913/">Tux</a> , <a href="https://commons.wikimedia.org/wiki/Crystal_Clear">Bug and Mini Tux</a>
+    , <a href="https://imgur.com/gallery/Dif0i">Main and Help Screen Background</a>
+    , <a href="https://opencoursehub.cs.sfu.ca/bfraser/solutions/276/images/ImageGallery/content/shutterstock_97013765_large.html">Game Screen Background</a>
+    , <a href="https://unsplash.com/photos/gcgves5H_Ac">Welcome Screen Background</a>
+    , <a href="https://www.asciiart.eu/animals/insects/other">ASCII Bug</a>
+    </string>
 
 
 </resources>
