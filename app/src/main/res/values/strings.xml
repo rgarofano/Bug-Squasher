@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Assignment 3</string>
+    <string name="app_name">Bug Squasher</string>
     <string name="game_title">[    Bug Squasher    ]</string>
     <string name="authors">[    by Ryan Garofano and Jen Gu    ]</string>
     <string name="bug">\ \ \ \ \ \'__\'\n
@@ -7,4 +7,22 @@
         \  /^||^\\\n
         /^^||^^\\\n
         \\^^||^^/</string>
+    <string name="about_author">Written by Jennifer Gu and Ryan Garofano for <a href="https://opencoursehub.cs.sfu.ca/bfraser/grav-cms/cmpt276/home"> CMPT276 (Intro to Software Engineering)</a></string>
+    <string name="game_info">\nBug Squasher is a game where the player tries to eliminate a certain number of bugs scattered throughout
+                            the Linux Terminal. The goal is to find all the bugs using the least amount of debugs.
+
+                            \nTo play the game, the player taps on a cell that they want to inspect. If the cell contains a bug, the
+                            bug is squashed. If there is no bug in the selected cell, a debugger is initiated that finds the
+                            number of bugs hidden in the same row and column and displays that number on the selected cell. If a bug has
+                            already been squashed and you wish to inspect the cell again, this will also trigger the debugger and display
+                            the number of bugs hidden in the selected bug\'s row and column.\n</string>
+    <string name="references">\n Image References:
+    <a href="https://www.cleanpng.com/png-tux-racer-penguin-linux-unix-live-community-my-ima-6271913/">Tux</a> , <a href="https://commons.wikimedia.org/wiki/Crystal_Clear">Bug and Mini Tux</a>
+    , <a href="https://imgur.com/gallery/Dif0i">Main and Help Screen Background</a>
+    , <a href="https://opencoursehub.cs.sfu.ca/bfraser/solutions/276/images/ImageGallery/content/shutterstock_97013765_large.html">Game Screen Background</a>
+    , <a href="https://unsplash.com/photos/gcgves5H_Ac">Welcome Screen Background</a>
+    , <a href="https://www.asciiart.eu/animals/insects/other">ASCII Bug</a>
+    </string>
+
+
 </resources>
