@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Assignment 3</string>
+    <string name="app_name">Bug Squasher</string>
     <string name="game_title">[    Bug Squasher    ]</string>
     <string name="authors">[    by Ryan Garofano and Jen Gu    ]</string>
     <string name="bug">\ \ \ \ \ \'__\'\n
@@ -7,4 +7,9 @@
         \  /^||^\\\n
         /^^||^^\\\n
         \\^^||^^/</string>
+    <string name="about_author">Written by Jennifer Gu and Ryan Garofano for CMPT 276 (Intro to Software Engineering)</string>
+    <string name="game_info">Some instructions?</string>
+    <string name="references">Image References here</string>
+
+
 </resources>

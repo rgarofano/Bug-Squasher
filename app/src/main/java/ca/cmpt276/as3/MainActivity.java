@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
         setupPlayButton();
+        setupHelpButton();
     }
 
     private void setupPlayButton() {
@@ -21,8 +22,18 @@ public class MainActivity extends AppCompatActivity {
         playButton.setOnClickListener(view -> launchGame());
     }
 
+    private void setupHelpButton() {
+        Button playButton = findViewById(R.id.helpButton);
+        playButton.setOnClickListener(view -> launchHelp());
+    }
+
     private void launchGame() {
         Intent intent = GameActivity.getIntent(this);
+        startActivity(intent);
+    }
+
+    private void launchHelp() {
+        Intent intent = HelpActivity.getIntent(this);
         startActivity(intent);
     }
 }
