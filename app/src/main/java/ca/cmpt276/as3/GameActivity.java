@@ -1,6 +1,8 @@
 package ca.cmpt276.as3;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ActionMode;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -38,6 +40,12 @@ public class GameActivity extends AppCompatActivity {
         buttons = new Button[numberOfRows][numberOfColumns];
         populateButtons();
         gameLogic.initializeGame();
+    }
+
+    @Override
+    public void onSupportActionModeFinished(@NonNull ActionMode mode) {
+        super.onSupportActionModeFinished(mode);
+        gameLogic.resetGameBoard();
     }
 
     private void initializeBugsFoundText() {
@@ -114,11 +122,11 @@ public class GameActivity extends AppCompatActivity {
 
         if (gameStatus == GameLogic.GameStatus.GAME_OVER) {
             revealBug(button);
+            updateBugsFound(gameLogic.getNumBugs());
             launchDialog();
-            return;
         } else if (gameStatus == GameLogic.GameStatus.BUG_FOUND) {
             revealBug(button);
-            updateBugsFound();
+            updateBugsFound(gameLogic.getBugsFound());
         } else if (gameStatus != GameLogic.GameStatus.NO_SCAN_USED) {
             updateDebugCount();
         }
@@ -149,9 +157,9 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    private void updateBugsFound() {
+    private void updateBugsFound(int numBugsFound) {
         TextView bugsFound = findViewById(R.id.bugsFound);
-        bugsFound.setText("Found " + gameLogic.getBugsFound() + " of " + gameLogic.getNumBugs() + " Bugs" );
+        bugsFound.setText("Found " + numBugsFound + " of " + gameLogic.getNumBugs() + " Bugs" );
     }
 
     private void updateDebugCount() {
