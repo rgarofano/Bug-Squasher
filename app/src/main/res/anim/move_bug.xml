@@ -6,7 +6,7 @@
     modified to animate bug as desired-->
 
     <translate
-        android:duration="8000"
+        android:duration="6000"
         android:fillAfter="true"
         android:fromXDelta="0%p"
         android:startOffset="300"
@@ -27,25 +27,25 @@
         android:interpolator="@android:anim/cycle_interpolator"
         android:pivotX="50%"
         android:pivotY="50%"
-        android:startOffset="2200"
+        android:startOffset="1900"
         android:toDegrees="-35" />
 
     <rotate
-        android:duration="2000"
+        android:duration="1000"
         android:fromDegrees="0"
         android:interpolator="@android:anim/cycle_interpolator"
         android:pivotX="50%"
         android:pivotY="50%"
-        android:startOffset="4500"
-        android:toDegrees="30" />
+        android:startOffset="4000"
+        android:toDegrees="25" />
 
     <rotate
-        android:duration="2000"
+        android:duration="1000"
         android:fromDegrees="0"
         android:interpolator="@android:anim/cycle_interpolator"
         android:pivotX="0%"
         android:pivotY="50%"
-        android:startOffset="6800"
-        android:toDegrees="-25" />
+        android:startOffset="5000"
+        android:toDegrees="-20" />
 
 </set>
