@@ -43,8 +43,8 @@ public class GameActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onSupportActionModeFinished(@NonNull ActionMode mode) {
-        super.onSupportActionModeFinished(mode);
+    protected void onDestroy() {
+        super.onDestroy();
         gameLogic.resetGameBoard();
     }
 
