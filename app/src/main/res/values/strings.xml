@@ -7,6 +7,11 @@
         \  /^||^\\\n
         /^^||^^\\\n
         \\^^||^^/</string>
+    <string name="dead_bug">\ \ \ \ \ \'__\'\n
+        \\x__x/\n==x||x==\n
+        \  /^||^\\\n
+        /^^||^^\\\n
+        \\^^||^^/</string>
     <string name="about_author">Written by Jennifer Gu and Ryan Garofano for <a href="https://opencoursehub.cs.sfu.ca/bfraser/grav-cms/cmpt276/home"> CMPT276 (Intro to Software Engineering)</a></string>
     <string name="game_info">\nBug Squasher is a game where the player tries to eliminate a certain number of bugs scattered throughout
                             the Linux Terminal. The goal is to find all the bugs using the least amount of debugs.
