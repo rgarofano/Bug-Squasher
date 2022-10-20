@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setupPlayButton();
         setupHelpButton();
+        setupOptionsButton();
     }
 
     private void setupPlayButton() {
@@ -27,6 +28,11 @@ public class MainActivity extends AppCompatActivity {
         playButton.setOnClickListener(view -> launchHelp());
     }
 
+    private void setupOptionsButton() {
+        Button optionsButton = findViewById(R.id.optionButton);
+        optionsButton.setOnClickListener(view -> launchOptions());
+    }
+
     private void launchGame() {
         Intent intent = GameActivity.getIntent(this);
         startActivity(intent);
@@ -34,6 +40,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void launchHelp() {
         Intent intent = HelpActivity.getIntent(this);
+        startActivity(intent);
+    }
+
+    private void launchOptions() {
+        Intent intent = OptionsActivity.getIntent(this);
         startActivity(intent);
     }
 }
