@@ -29,4 +29,8 @@ public class KeyGen {
         allowedKeys.remove(key);
         return key;
     }
+
+    public void reset() {
+        allowedKeys = new ArrayList<String>();
+    }
 }

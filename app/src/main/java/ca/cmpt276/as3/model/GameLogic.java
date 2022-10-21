@@ -56,12 +56,14 @@ public class GameLogic {
             this.numRows = numRows;
             this.numCols = numCols;
             this.numBugs = numBugs;
-            resetGameBoard();
+            resetGame();
         }
     }
 
-    public void resetGameBoard() {
+    public void resetGame() {
         gameBoard = new HashMap<String, GameButton>();
+        bugsFound = 0;
+        keyGen.reset();
     }
 
     public void addGameButton(int row, int col) {
@@ -123,11 +125,7 @@ public class GameLogic {
             button.setBugFound(true);
             bugsFound++;
             updateBugCount(row, col, DECREMENT_COUNT);
-            if (isGameOver()) {
-                bugsFound = 0;
-                return GameStatus.GAME_OVER;
-            }
-            return GameStatus.BUG_FOUND;
+            return isGameOver() ? GameStatus.GAME_OVER : GameStatus.BUG_FOUND;
         } else if (button.isHidingText()) {
             button.showText();
             return GameStatus.NO_BUG_FOUND;
