@@ -28,6 +28,7 @@ public class GameActivity extends AppCompatActivity {
     private int numberOfRows;
     private int numberOfColumns;
     private int debugCount = 0;
+    private int numberTimesPlayed;
     private Button[][] buttons;
     private MediaPlayer bugFoundMediaPlayer;
     private MediaPlayer scanMediaPlayer;
@@ -47,6 +48,7 @@ public class GameActivity extends AppCompatActivity {
         gameLogic.initializeGame();
         bugFoundMediaPlayer = MediaPlayer.create(this, R.raw.shine);
         scanMediaPlayer = MediaPlayer.create(this, R.raw.scan);
+        setNumberTimesPlayedText();
     }
 
     private void restoreGameSettings() {
@@ -197,6 +199,12 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    private void setNumberTimesPlayedText() {
+        TextView txtTimesPlayed = findViewById(R.id.textViewTimesPlayed);
+        numberTimesPlayed = OptionsActivity.getTimesPlayed(this);
+        txtTimesPlayed.setText("Times Played: " + numberTimesPlayed);
+    }
+
     private void updateDebugCount() {
         debugCount++;
         TextView debugAttempts = findViewById(R.id.debugAttempts);
@@ -233,5 +241,6 @@ public class GameActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         gameLogic.resetGame();
+        OptionsActivity.saveTimesPlayed(this, ++numberTimesPlayed);
     }
 }

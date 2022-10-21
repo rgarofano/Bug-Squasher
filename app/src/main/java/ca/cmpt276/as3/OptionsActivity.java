@@ -8,8 +8,10 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import ca.cmpt276.as3.model.GameLogic;
 
@@ -25,6 +27,7 @@ public class OptionsActivity extends AppCompatActivity {
         gameLogic = GameLogic.getInstance();
         populateBoardSizeRadioButtons();
         populateNumberBugsRadioButtons();
+        setupTimesPlayedResetButton();
     }
 
     private void populateBoardSizeRadioButtons() {
@@ -100,6 +103,11 @@ public class OptionsActivity extends AppCompatActivity {
         saveNumberBugs(numBugs);
     }
 
+    private void setupTimesPlayedResetButton() {
+        Button resetBtn = findViewById(R.id.buttonResetTimesPlayed);
+        resetBtn.setOnClickListener(view -> resetTimesPlayed());
+    }
+
     private void saveNumberBugs(int numBugs) {
         SharedPreferences prefs = getSharedPreferences("AppPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
@@ -111,6 +119,28 @@ public class OptionsActivity extends AppCompatActivity {
         SharedPreferences prefs = context.getSharedPreferences("AppPrefs", MODE_PRIVATE);
         int numBugs = prefs.getInt("number of bugs", 6);
         return numBugs;
+    }
+
+    public static void saveTimesPlayed(Context context, int numberTimesPlayed) {
+        SharedPreferences prefs = context.getSharedPreferences("TimesPlayed", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt("Number of times played", numberTimesPlayed);
+        editor.apply();
+    }
+
+    public static int getTimesPlayed(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences("TimesPlayed", MODE_PRIVATE);
+        int numberTimesPlayed = prefs.getInt("Number of times played", 1);
+        return numberTimesPlayed;
+    }
+
+    private void resetTimesPlayed() {
+        SharedPreferences prefs = getSharedPreferences("TimesPlayed", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.clear();
+        editor.commit();
+        Toast.makeText(this, "Number of Times Played Data Erased", Toast.LENGTH_SHORT)
+                .show();
     }
 
     static Intent getIntent(Context context) {
