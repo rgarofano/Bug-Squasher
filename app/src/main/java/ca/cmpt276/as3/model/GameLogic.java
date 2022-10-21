@@ -56,12 +56,14 @@ public class GameLogic {
             this.numRows = numRows;
             this.numCols = numCols;
             this.numBugs = numBugs;
-            resetGameBoard();
+            resetGame();
         }
     }
 
-    private void resetGameBoard() {
+    private void resetGame() {
         gameBoard = new HashMap<String, GameButton>();
+        bugsFound = 0;
+        keyGen.reset();
     }
 
     public void addGameButton(int row, int col) {

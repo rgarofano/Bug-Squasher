@@ -4,6 +4,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/binary_green_bg"
+    android:backgroundTint="#66000000"
+    android:backgroundTintMode="src_over"
     tools:context=".OptionsActivity">
 
+    <RadioGroup
+        android:id="@+id/radioGroupBoardSize"
+        android:layout_width="195dp"
+        android:layout_height="wrap_content"
+        android:background="#40000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.14"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
+        app:layout_constraintVertical_bias="0.381">
+
+        <TextView
+            android:id="@+id/textViewBoardSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select Board Size"
+            android:textAlignment="center"
+            android:textColor="@color/green_gecko"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/radioGroupNumBugs"
+        android:layout_width="195dp"
+        android:layout_height="wrap_content"
+        android:background="#40000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.875"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
+        app:layout_constraintVertical_bias="0.381">
+
+        <TextView
+            android:id="@+id/textViewNumBugs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select Number Bugs"
+            android:textAlignment="center"
+            android:textColor="@color/green_gecko"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#40000000"
+        android:text="Game Settings"
+        android:textAlignment="center"
+        android:textColor="@color/green_gecko"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
