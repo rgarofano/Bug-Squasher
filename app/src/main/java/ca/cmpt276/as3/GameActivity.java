@@ -23,6 +23,7 @@ import ca.cmpt276.as3.model.GameLogic;
 
 public class GameActivity extends AppCompatActivity {
     private GameLogic gameLogic;
+    private boolean gameOver = false;
     private int numberOfRows;
     private int numberOfColumns;
     private int debugCount = 0;
@@ -45,7 +46,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        gameLogic.resetGameBoard();
+        gameLogic.resetGame();
     }
 
     private void initializeBugsFoundText() {
@@ -116,6 +117,10 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void gameButtonClicked(int row, int col) {
+        if (gameOver) {
+            return;
+        }
+
         GameLogic.GameStatus gameStatus = gameLogic.generateClickResponse(row, col);
         Button button = buttons[row][col];
         lockButtonSizes();
@@ -124,6 +129,7 @@ public class GameActivity extends AppCompatActivity {
             revealBug(button);
             updateBugsFound(gameLogic.getNumBugs());
             launchDialog();
+            gameOver = true;
         } else if (gameStatus == GameLogic.GameStatus.BUG_FOUND) {
             revealBug(button);
             updateBugsFound(gameLogic.getBugsFound());

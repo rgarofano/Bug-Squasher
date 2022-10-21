@@ -60,7 +60,7 @@ public class GameLogic {
         }
     }
 
-    private void resetGame() {
+    public void resetGame() {
         gameBoard = new HashMap<String, GameButton>();
         bugsFound = 0;
         keyGen.reset();
@@ -125,11 +125,7 @@ public class GameLogic {
             button.setBugFound(true);
             bugsFound++;
             updateBugCount(row, col, DECREMENT_COUNT);
-            if (isGameOver()) {
-                bugsFound = 0;
-                return GameStatus.GAME_OVER;
-            }
-            return GameStatus.BUG_FOUND;
+            return isGameOver() ? GameStatus.GAME_OVER : GameStatus.BUG_FOUND;
         } else if (button.isHidingText()) {
             button.showText();
             return GameStatus.NO_BUG_FOUND;
