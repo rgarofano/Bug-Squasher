@@ -4,6 +4,12 @@ package ca.cmpt276.as3.model;
 import java.util.HashMap;
 import java.util.Map;
 
+/** Determines the logic of each game based on stored game parameters
+    which are set in the options activity. Game logic includes random
+    selection of which buttons are bugs, dynamically determining the
+    number of bugs in each buttons row and column, and detecting the
+    status of the game such as a bug being found or the the player winning **/
+
 public class GameLogic {
     /* Singleton Interface */
     private static GameLogic gameLogic = null;

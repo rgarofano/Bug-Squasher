@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/** Serves as a key generator for the game board map in the GameLogic class.
+    Provides the ability to select a random key from a stored list. **/
+
 public class KeyGen {
     private List<String> allowedKeys = new ArrayList<String>();
 

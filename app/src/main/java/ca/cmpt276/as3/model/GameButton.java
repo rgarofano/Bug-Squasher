@@ -1,5 +1,10 @@
 package ca.cmpt276.as3.model;
 
+/** Functions as a data structure for each individual game button. Stores the amount
+    of bugs in the buttons row and column, whether the button is a bug, as well as the
+    row and column the button is in. Controls the logic for when text should be shown
+    on the button during a game. **/
+
 public class GameButton {
     private boolean isBug;
     private int bugCount;
