@@ -13,6 +13,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -135,20 +136,12 @@ public class GameActivity extends AppCompatActivity {
         } else if (gameStatus == GameLogic.GameStatus.BUG_FOUND) {
             revealBug(button);
             updateBugsFound(gameLogic.getBugsFound());
+            playBugFoundSoundEffect();
         } else if (gameStatus != GameLogic.GameStatus.NO_SCAN_USED) {
             updateDebugCount();
         }
 
         updateUIText();
-    }
-
-    private void revealBug(Button button) {
-        int newWidth = button.getWidth();
-        int newHeight = button.getHeight();
-        Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bug_red);
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, true);
-        Resources resource = getResources();
-        button.setBackground(new BitmapDrawable(resource, scaledBitmap));
     }
 
     private void lockButtonSizes() {
@@ -165,9 +158,23 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    private void revealBug(Button button) {
+        int newWidth = button.getWidth();
+        int newHeight = button.getHeight();
+        Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bug_red);
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, true);
+        Resources resource = getResources();
+        button.setBackground(new BitmapDrawable(resource, scaledBitmap));
+    }
+
     private void updateBugsFound(int numBugsFound) {
         TextView bugsFound = findViewById(R.id.bugsFound);
         bugsFound.setText("Found " + numBugsFound + " of " + gameLogic.getNumBugs() + " Bugs" );
+    }
+
+    private void playBugFoundSoundEffect() {
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.shine);
+        mediaPlayer.start();
     }
 
     private void updateDebugCount() {
