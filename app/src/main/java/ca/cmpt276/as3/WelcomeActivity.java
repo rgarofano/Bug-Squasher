@@ -64,7 +64,7 @@ public class WelcomeActivity extends AppCompatActivity {
         //skip button override of handler
         Button skipButton = findViewById(R.id.skipButton);
         skipButton.setOnClickListener(v -> {
-            if(handler != null) {
+            if(runnable != null) {
                 handler.removeCallbacks(runnable);
             }
             startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
