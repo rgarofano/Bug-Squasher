@@ -29,6 +29,8 @@ public class GameActivity extends AppCompatActivity {
     private int numberOfColumns;
     private int debugCount = 0;
     private Button[][] buttons;
+    private MediaPlayer bugFoundMediaPlayer;
+    private MediaPlayer scanMediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,8 @@ public class GameActivity extends AppCompatActivity {
         buttons = new Button[numberOfRows][numberOfColumns];
         populateButtons();
         gameLogic.initializeGame();
+        bugFoundMediaPlayer = MediaPlayer.create(this, R.raw.shine);
+        scanMediaPlayer = MediaPlayer.create(this, R.raw.scan);
     }
 
     private void restoreGameSettings() {
@@ -131,6 +135,7 @@ public class GameActivity extends AppCompatActivity {
         if (gameStatus == GameLogic.GameStatus.GAME_OVER) {
             revealBug(button);
             updateBugsFound(gameLogic.getNumBugs());
+            playBugFoundSoundEffect();
             launchDialog();
             gameOver = true;
         } else if (gameStatus == GameLogic.GameStatus.BUG_FOUND) {
@@ -139,6 +144,7 @@ public class GameActivity extends AppCompatActivity {
             playBugFoundSoundEffect();
         } else if (gameStatus != GameLogic.GameStatus.NO_SCAN_USED) {
             updateDebugCount();
+            playScanSoundEffect();
         }
 
         updateUIText();
@@ -173,8 +179,22 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void playBugFoundSoundEffect() {
-        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.shine);
-        mediaPlayer.start();
+        if (scanMediaPlayer.isPlaying()) {
+            scanMediaPlayer.seekTo(3000);
+        }
+        if (bugFoundMediaPlayer.isPlaying()) {
+            bugFoundMediaPlayer.seekTo(0);
+        } else {
+            bugFoundMediaPlayer.start();
+        }
+    }
+
+    private void playScanSoundEffect() {
+        if (scanMediaPlayer.isPlaying()) {
+            scanMediaPlayer.seekTo(0);
+        } else {
+            scanMediaPlayer.start();
+        }
     }
 
     private void updateDebugCount() {
