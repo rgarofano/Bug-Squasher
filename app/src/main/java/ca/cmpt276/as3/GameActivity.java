@@ -13,6 +13,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -28,6 +29,8 @@ public class GameActivity extends AppCompatActivity {
     private int numberOfColumns;
     private int debugCount = 0;
     private Button[][] buttons;
+    private MediaPlayer bugFoundMediaPlayer;
+    private MediaPlayer scanMediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,8 @@ public class GameActivity extends AppCompatActivity {
         buttons = new Button[numberOfRows][numberOfColumns];
         populateButtons();
         gameLogic.initializeGame();
+        bugFoundMediaPlayer = MediaPlayer.create(this, R.raw.shine);
+        scanMediaPlayer = MediaPlayer.create(this, R.raw.scan);
     }
 
     private void restoreGameSettings() {
@@ -130,25 +135,19 @@ public class GameActivity extends AppCompatActivity {
         if (gameStatus == GameLogic.GameStatus.GAME_OVER) {
             revealBug(button);
             updateBugsFound(gameLogic.getNumBugs());
+            playBugFoundSoundEffect();
             launchDialog();
             gameOver = true;
         } else if (gameStatus == GameLogic.GameStatus.BUG_FOUND) {
             revealBug(button);
             updateBugsFound(gameLogic.getBugsFound());
+            playBugFoundSoundEffect();
         } else if (gameStatus != GameLogic.GameStatus.NO_SCAN_USED) {
             updateDebugCount();
+            playScanSoundEffect();
         }
 
         updateUIText();
-    }
-
-    private void revealBug(Button button) {
-        int newWidth = button.getWidth();
-        int newHeight = button.getHeight();
-        Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bug_red);
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, true);
-        Resources resource = getResources();
-        button.setBackground(new BitmapDrawable(resource, scaledBitmap));
     }
 
     private void lockButtonSizes() {
@@ -165,9 +164,37 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    private void revealBug(Button button) {
+        int newWidth = button.getWidth();
+        int newHeight = button.getHeight();
+        Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bug_red);
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, true);
+        Resources resource = getResources();
+        button.setBackground(new BitmapDrawable(resource, scaledBitmap));
+    }
+
     private void updateBugsFound(int numBugsFound) {
         TextView bugsFound = findViewById(R.id.bugsFound);
         bugsFound.setText("Found " + numBugsFound + " of " + gameLogic.getNumBugs() + " Bugs" );
+    }
+
+    private void playBugFoundSoundEffect() {
+        if (scanMediaPlayer.isPlaying()) {
+            scanMediaPlayer.seekTo(3000);
+        }
+        if (bugFoundMediaPlayer.isPlaying()) {
+            bugFoundMediaPlayer.seekTo(0);
+        } else {
+            bugFoundMediaPlayer.start();
+        }
+    }
+
+    private void playScanSoundEffect() {
+        if (scanMediaPlayer.isPlaying()) {
+            scanMediaPlayer.seekTo(0);
+        } else {
+            scanMediaPlayer.start();
+        }
     }
 
     private void updateDebugCount() {
