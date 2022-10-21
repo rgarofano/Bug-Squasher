@@ -20,6 +20,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.security.cert.PKIXRevocationChecker;
+
 import ca.cmpt276.as3.model.GameLogic;
 
 public class GameActivity extends AppCompatActivity {
@@ -28,6 +30,7 @@ public class GameActivity extends AppCompatActivity {
     private int numberOfRows;
     private int numberOfColumns;
     private int debugCount = 0;
+    private int numberTimesPlayed;
     private Button[][] buttons;
     private MediaPlayer bugFoundMediaPlayer;
     private MediaPlayer scanMediaPlayer;
@@ -47,6 +50,8 @@ public class GameActivity extends AppCompatActivity {
         gameLogic.initializeGame();
         bugFoundMediaPlayer = MediaPlayer.create(this, R.raw.shine);
         scanMediaPlayer = MediaPlayer.create(this, R.raw.scan);
+        setNumberTimesPlayedText();
+        setBestScoreText();
     }
 
     private void restoreGameSettings() {
@@ -137,6 +142,8 @@ public class GameActivity extends AppCompatActivity {
             updateBugsFound(gameLogic.getNumBugs());
             playBugFoundSoundEffect();
             launchDialog();
+            OptionsActivity.saveTimesPlayed(this, ++numberTimesPlayed);
+            OptionsActivity.saveBestScore(this, numberOfRows, numberOfColumns, gameLogic.getNumBugs(), debugCount);
             gameOver = true;
         } else if (gameStatus == GameLogic.GameStatus.BUG_FOUND) {
             revealBug(button);
@@ -195,6 +202,20 @@ public class GameActivity extends AppCompatActivity {
         } else {
             scanMediaPlayer.start();
         }
+    }
+
+    private void setNumberTimesPlayedText() {
+        TextView txtTimesPlayed = findViewById(R.id.textViewTimesPlayed);
+        numberTimesPlayed = OptionsActivity.getTimesPlayed(this);
+        txtTimesPlayed.setText("Times Played: " + numberTimesPlayed);
+    }
+
+    private void setBestScoreText() {
+        TextView txtBestScore = findViewById(R.id.textViewBestScore);
+        int numberBugs = gameLogic.getNumBugs();
+        int bestScore = OptionsActivity.getBestScore(this, numberOfRows, numberOfColumns, numberBugs);
+        String text = bestScore == -1 ? "Best Score: -" : "Best Score: " + bestScore;
+        txtBestScore.setText(text);
     }
 
     private void updateDebugCount() {

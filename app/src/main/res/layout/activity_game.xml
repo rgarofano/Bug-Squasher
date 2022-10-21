@@ -41,10 +41,43 @@
     <TableLayout
         android:id="@+id/tableForButtons"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="321dp"
         android:layout_below="@id/layoutForText"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="0dp"
         android:padding="10dp"
-        android:stretchColumns="*">
-    </TableLayout>
+        android:stretchColumns="*"></TableLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutBottomText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tableForButtons"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:id="@+id/textViewTimesPlayed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Times Played: -"
+            android:textColor="#39FF14"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewBestScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/textViewTimesPlayed"
+            android:layout_weight="1"
+            android:text="Best Score: -"
+            android:textAlignment="textEnd"
+            android:textColor="#39FF14"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
 </RelativeLayout>
