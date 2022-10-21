@@ -28,6 +28,7 @@ public class OptionsActivity extends AppCompatActivity {
         populateBoardSizeRadioButtons();
         populateNumberBugsRadioButtons();
         setupTimesPlayedResetButton();
+        setupScoreResetButton();
     }
 
     private void populateBoardSizeRadioButtons() {
@@ -108,6 +109,11 @@ public class OptionsActivity extends AppCompatActivity {
         resetBtn.setOnClickListener(view -> resetTimesPlayed());
     }
 
+    private void setupScoreResetButton() {
+        Button resetBtn = findViewById(R.id.buttonResetScore);
+        resetBtn.setOnClickListener(view -> resetScores());
+    }
+
     private void saveNumberBugs(int numBugs) {
         SharedPreferences prefs = getSharedPreferences("AppPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
@@ -130,8 +136,7 @@ public class OptionsActivity extends AppCompatActivity {
 
     public static int getTimesPlayed(Context context) {
         SharedPreferences prefs = context.getSharedPreferences("TimesPlayed", MODE_PRIVATE);
-        int numberTimesPlayed = prefs.getInt("Number of times played", 1);
-        return numberTimesPlayed;
+        return prefs.getInt("Number of times played", 0);
     }
 
     private void resetTimesPlayed() {
@@ -141,6 +146,31 @@ public class OptionsActivity extends AppCompatActivity {
         editor.commit();
         Toast.makeText(this, "Number of Times Played Data Erased", Toast.LENGTH_SHORT)
                 .show();
+    }
+
+    public static void saveBestScore(Context context, int numRows, int numCols, int numBugs, int score) {
+        SharedPreferences prefs = context.getSharedPreferences("Game Scores", MODE_PRIVATE);
+        String key = "" + numRows + numCols + numBugs;
+        int bestScore = prefs.getInt(key, Integer.MAX_VALUE);
+        if (score < bestScore) {
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putInt(key, score);
+            editor.apply();
+        }
+    }
+
+    public static int getBestScore(Context context, int numRows, int numCols, int numBugs) {
+        SharedPreferences prefs = context.getSharedPreferences("Game Scores", MODE_PRIVATE);
+        String key = "" + numRows + numCols + numBugs;
+        return prefs.getInt(key, -1);
+    }
+
+    private void resetScores() {
+        SharedPreferences prefs = getSharedPreferences("Game Scores", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.clear();
+        editor.commit();
+        Toast.makeText(this, "Best Score Data Erased", Toast.LENGTH_SHORT).show();
     }
 
     static Intent getIntent(Context context) {
