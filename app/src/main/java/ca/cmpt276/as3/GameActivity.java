@@ -35,6 +35,7 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         getSupportActionBar().hide();
         gameLogic = GameLogic.getInstance();
+        restoreGameSettings();
         initializeBugsFoundText();
         numberOfRows = gameLogic.getNumberOfRows();
         numberOfColumns = gameLogic.getNumberOfColumns();
@@ -43,10 +44,11 @@ public class GameActivity extends AppCompatActivity {
         gameLogic.initializeGame();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        gameLogic.resetGame();
+    private void restoreGameSettings() {
+        int numberRows = OptionsActivity.getNumberRows(this);
+        int numberCols = OptionsActivity.getNumberCols(this);
+        int numberBugs = OptionsActivity.getNumberBugs(this);
+        gameLogic.changeOptions(numberRows, numberCols, numberBugs);
     }
 
     private void initializeBugsFoundText() {
@@ -198,5 +200,11 @@ public class GameActivity extends AppCompatActivity {
     public static Intent getIntent(Context context) {
         Intent intent = new Intent(context, GameActivity.class);
         return intent;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        gameLogic.resetGame();
     }
 }
