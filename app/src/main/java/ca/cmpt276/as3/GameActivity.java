@@ -1,6 +1,8 @@
 package ca.cmpt276.as3;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ActionMode;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -38,6 +40,12 @@ public class GameActivity extends AppCompatActivity {
         buttons = new Button[numberOfRows][numberOfColumns];
         populateButtons();
         gameLogic.initializeGame();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        gameLogic.resetGameBoard();
     }
 
     private void initializeBugsFoundText() {
@@ -111,20 +119,19 @@ public class GameActivity extends AppCompatActivity {
         GameLogic.GameStatus gameStatus = gameLogic.generateClickResponse(row, col);
         Button button = buttons[row][col];
         lockButtonSizes();
-        if (gameStatus == GameLogic.GameStatus.BUG_FOUND
-         || gameStatus == GameLogic.GameStatus.GAME_OVER) {
-            revealBug(button);
-            updateBugsFound();
-        }
-
-        if (gameStatus != GameLogic.GameStatus.NO_SCAN_USED) {
-            updateDebugCount();
-            updateUIText();
-        }
 
         if (gameStatus == GameLogic.GameStatus.GAME_OVER) {
+            revealBug(button);
+            updateBugsFound(gameLogic.getNumBugs());
             launchDialog();
+        } else if (gameStatus == GameLogic.GameStatus.BUG_FOUND) {
+            revealBug(button);
+            updateBugsFound(gameLogic.getBugsFound());
+        } else if (gameStatus != GameLogic.GameStatus.NO_SCAN_USED) {
+            updateDebugCount();
         }
+
+        updateUIText();
     }
 
     private void revealBug(Button button) {
@@ -150,9 +157,9 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    private void updateBugsFound() {
+    private void updateBugsFound(int numBugsFound) {
         TextView bugsFound = findViewById(R.id.bugsFound);
-        bugsFound.setText("Found " + gameLogic.getBugsFound() + " of " + gameLogic.getNumBugs() + " Bugs" );
+        bugsFound.setText("Found " + numBugsFound + " of " + gameLogic.getNumBugs() + " Bugs" );
     }
 
     private void updateDebugCount() {
