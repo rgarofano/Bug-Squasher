@@ -16,18 +16,19 @@
     <string name="game_info">\nBug Squasher is a game where the player tries to eliminate a certain number of bugs scattered throughout
                             the Linux Terminal. The goal is to find all the bugs using the least amount of debugs.
 
-                            \nTo play the game, the player taps on a cell that they want to inspect. If the cell contains a bug, the
+                            \n\nTo play the game, the player taps on a cell that they want to inspect. If the cell contains a bug, the
                             bug is squashed. If there is no bug in the selected cell, a debugger is initiated that finds the
                             number of bugs hidden in the same row and column and displays that number on the selected cell. If a bug has
                             already been squashed and you wish to inspect the cell again, this will also trigger the debugger and display
                             the number of bugs hidden in the selected bug\'s row and column.\n</string>
-    <string name="references">\n Image References:
+    <string name="references">\nImage References:\n\n
     <a href="https://www.cleanpng.com/png-tux-racer-penguin-linux-unix-live-community-my-ima-6271913/">Tux</a> , <a href="https://commons.wikimedia.org/wiki/Crystal_Clear">Bug and Mini Tux</a>
     , <a href="https://imgur.com/gallery/Dif0i">Main and Help Screen Background</a>
     , <a href="https://opencoursehub.cs.sfu.ca/bfraser/solutions/276/images/ImageGallery/content/shutterstock_97013765_large.html">Game Screen Background</a>
     , <a href="https://unsplash.com/photos/gcgves5H_Ac">Welcome Screen Background</a>
-    , <a href="https://www.asciiart.eu/animals/insects/other">ASCII Bug</a>
+    , <a href="https://www.asciiart.eu/animals/insects/other">ASCII Bug</a>\n
     </string>
-
+    <string name="audio_references">\n Audio References:\n\n<a href="https://www.youtube.com/watch?v=bLkbx2x1u2M&amp;ab_channel=FreeBackgroundMusic%26SoundEffects">Find Bug Sound</a>\n<a href="https://www.youtube.com/watch?v=wcjlr76sf4A&amp;ab_channel=OtherGreatOptions">Debug Sound</a> \n
+    </string>
 
 </resources>
