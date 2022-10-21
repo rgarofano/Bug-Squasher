@@ -22,7 +22,11 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
         getSupportActionBar().hide();
 
-        //start android animations
+        setupSkipButton();
+        startAnimations();
+    }
+
+    private void startAnimations() {
         TextView bug = findViewById(R.id.bug);
         Animation move = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move_bug);
         bug.startAnimation(move);
@@ -30,16 +34,9 @@ public class WelcomeActivity extends AppCompatActivity {
         move.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                TextView bug = findViewById(R.id.bug);
-                bug.setText(R.string.dead_bug);
+                handler = new Handler();
 
                 //delayed handler that starts the main activity
-                handler = new Handler();
                 runnable = new Runnable() {
                     @Override
                     public void run() {
@@ -47,7 +44,13 @@ public class WelcomeActivity extends AppCompatActivity {
                         finish();
                     }
                 };
-                handler.postDelayed(runnable, DELAY_MILLIS);
+                handler.postDelayed(runnable, DELAY_MILLIS + animation.getDuration());
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                TextView bug = findViewById(R.id.bug);
+                bug.setText(R.string.dead_bug);
             }
 
             @Override
@@ -55,11 +58,15 @@ public class WelcomeActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    private void setupSkipButton() {
         //skip button override of handler
         Button skipButton = findViewById(R.id.skipButton);
         skipButton.setOnClickListener(v -> {
-            handler.removeCallbacks(runnable);
+            if(handler != null) {
+                handler.removeCallbacks(runnable);
+            }
             startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
             finish();
         });
