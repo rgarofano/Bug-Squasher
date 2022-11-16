@@ -1,7 +1,3 @@
-[ 5] Welcome screen: animation
-[ 3] Main menu: nice buttons and better than expected screen look
-[ 3] Game: Play sound on scan and on find a mine
-[10] Display & Save # games started (total), and best score between launches.
-	     - Options screen able to reset number games played to 0, and clear all high scores.
-	     - Must store best score for each possible game configuration and display
-	       the best score for the current configuration while playing the game.
+Bug Squasher is a game where the player tries to eliminate a certain number of bugs scattered throughout the Linux Terminal. The goal is to find all the bugs using the least amount of debugs. To play the game, the player taps on a cell that they want to inspect. If the cell contains a bug, the bug is squashed. If there is no bug in the selected cell, a debugger is initiated that finds the number of bugs hidden in the same row and column and displays that number on the selected cell. If a bug has already been squashed and you wish to inspect the cell again, this will also trigger the debugger and display the number of bugs hidden in the selected bug's row and column.
+
+See docs folder for images of the game during use.
